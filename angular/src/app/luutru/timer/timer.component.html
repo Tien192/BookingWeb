@@ -1,0 +1,38 @@
+<div class="CountDown card" *ngIf="showCountdown">
+  <i
+    class="fa-solid fa-x close-button"
+    (click)="closeCountdown()"
+    style="color: #ee7253"
+  ></i>
+
+  <div class="title-time">BIG SALE</div>
+  <hr style="margin: 0" />
+  <h1 style="color: red; text-align: center">50%</h1>
+
+  <div class="countdownt">
+    <div class="box">
+      <span class="num" id="day-box">
+        {{ remainingTime?.days | number : "2.0" }}
+      </span>
+      <span class="text">Ngày</span>
+    </div>
+    <div class="box">
+      <span class="num" id="hour-box">
+        {{ remainingTime?.hours | number : "2.0" }}
+      </span>
+      <span class="text">Giờ</span>
+    </div>
+    <div class="box">
+      <span class="num" id="minute-box">
+        {{ remainingTime?.minutes | number : "2.0" }}
+      </span>
+      <span class="text">Phút</span>
+    </div>
+    <div class="box">
+      <span class="num" id="second-box">
+        {{ remainingTime?.seconds | number : "2.0" }}
+      </span>
+      <span class="text">Giây</span>
+    </div>
+  </div>
+</div>

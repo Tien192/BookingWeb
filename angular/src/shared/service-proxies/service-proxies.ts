@@ -2781,6 +2781,63 @@ export class LienHeServiceProxy {
         }
         return _observableOf(null as any);
     }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    serverSendToMailClient(body: MailDto | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/services/app/LienHe/ServerSendToMailClient";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processServerSendToMailClient(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processServerSendToMailClient(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<boolean>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<boolean>;
+        }));
+    }
+
+    protected processServerSendToMailClient(response: HttpResponseBase): Observable<boolean> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+    
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
 }
 
 @Injectable()
@@ -8336,6 +8393,7 @@ export class GetInfoRoomToBookOutputDto implements IGetInfoRoomToBookOutputDto {
     donViKinhDoanhId: number;
     tenDonVi: string | undefined;
     phongId: number;
+    tenFIleAnh: string | undefined;
     loaiPhongId: number;
     tenLoaiPhong: string | undefined;
     sucChuaPhong: number;
@@ -8362,6 +8420,7 @@ export class GetInfoRoomToBookOutputDto implements IGetInfoRoomToBookOutputDto {
             this.donViKinhDoanhId = _data["donViKinhDoanhId"];
             this.tenDonVi = _data["tenDonVi"];
             this.phongId = _data["phongId"];
+            this.tenFIleAnh = _data["tenFIleAnh"];
             this.loaiPhongId = _data["loaiPhongId"];
             this.tenLoaiPhong = _data["tenLoaiPhong"];
             this.sucChuaPhong = _data["sucChuaPhong"];
@@ -8388,6 +8447,7 @@ export class GetInfoRoomToBookOutputDto implements IGetInfoRoomToBookOutputDto {
         data["donViKinhDoanhId"] = this.donViKinhDoanhId;
         data["tenDonVi"] = this.tenDonVi;
         data["phongId"] = this.phongId;
+        data["tenFIleAnh"] = this.tenFIleAnh;
         data["loaiPhongId"] = this.loaiPhongId;
         data["tenLoaiPhong"] = this.tenLoaiPhong;
         data["sucChuaPhong"] = this.sucChuaPhong;
@@ -8414,6 +8474,7 @@ export interface IGetInfoRoomToBookOutputDto {
     donViKinhDoanhId: number;
     tenDonVi: string | undefined;
     phongId: number;
+    tenFIleAnh: string | undefined;
     loaiPhongId: number;
     tenLoaiPhong: string | undefined;
     sucChuaPhong: number;
@@ -9637,6 +9698,57 @@ export interface ILoaiPhongSearchingFilterDto {
     giaPhongTheoDem: number;
     uuDai: number;
     anhDaiDien: string | undefined;
+}
+
+export class MailDto implements IMailDto {
+    hoTen: string | undefined;
+    phoneNumber: string | undefined;
+    email: string | undefined;
+
+    constructor(data?: IMailDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.hoTen = _data["hoTen"];
+            this.phoneNumber = _data["phoneNumber"];
+            this.email = _data["email"];
+        }
+    }
+
+    static fromJS(data: any): MailDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new MailDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["hoTen"] = this.hoTen;
+        data["phoneNumber"] = this.phoneNumber;
+        data["email"] = this.email;
+        return data;
+    }
+
+    clone(): MailDto {
+        const json = this.toJSON();
+        let result = new MailDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IMailDto {
+    hoTen: string | undefined;
+    phoneNumber: string | undefined;
+    email: string | undefined;
 }
 
 export class MessageDto implements IMessageDto {

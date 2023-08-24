@@ -16,7 +16,7 @@
             <div class="row">
               <!-- Ngày nhận -->
               <div class="col-lg-6 col-sm-6 col-xs-12">
-                <p>Ngày nhận</p>
+                <h6 style="font-weight: bold">Ngày nhận</h6>
                 <input
                   type="date"
                   [value]="
@@ -36,7 +36,7 @@
 
               <!-- Ngày trả -->
               <div class="col-lg-6 col-sm-6 col-xs-12">
-                <p>Ngày trả</p>
+                <h6 style="font-weight: bold">Ngày trả</h6>
                 <input
                   type="date"
                   [value]="
@@ -71,14 +71,18 @@
           <hr />
           <div class="row">
             <div class="col-lg-12">
-              <p-checkbox
-                [disabled]="true"
-                [ngModel]="selectedloaiphong?.mienPhiHuyPhong"
-                (ngModel)="(selectedloaiphong?.mienPhiHuyPhong)"
-                binary=" selectedloaiphong?.mienPhiHuyPhong"
-                label="Cho phép hủy phòng"
+              <h6
+                style="color: #00a651; margin-top: 10px"
+                *ngIf="selectedloaiphong?.mienPhiHuyPhong"
               >
-              </p-checkbox>
+                Miễn phí hủy phòng
+              </h6>
+              <h6
+                style="color: orange; margin-top: 10px"
+                *ngIf="!selectedloaiphong?.mienPhiHuyPhong"
+              >
+                Không miễn phí hủy phòng
+              </h6>
             </div>
           </div>
           <hr />
@@ -93,7 +97,7 @@
 
       <!-- Card Chính sách -->
       <div class="card XacNhanDatCho">
-        <h6>Chính sách khách sạn & phòng</h6>
+        <h6 style="font-weight: bold">Chính sách khách sạn & phòng</h6>
         <div class="row">
           <div class="col-lg-12">
             <p>{{ chinhsachchung?.chinhSachVePhong }}</p>
@@ -101,7 +105,7 @@
         </div>
       </div>
       <div class="card XacNhanDatCho">
-        <h6>Chính sách lưu trú</h6>
+        <h6 style="font-weight: bold">Chính sách lưu trú</h6>
         <div class="row">
           <div class="col-lg-3"><i class="pi pi-sign-in"></i> Nhận phòng :</div>
           <div class="col-lg-9">
@@ -117,7 +121,7 @@
         </div>
       </div>
       <div class="card XacNhanDatCho">
-        <h6>Chi tiết giá</h6>
+        <h6 style="font-weight: bold">Chi tiết giá</h6>
         <div class="row">
           <div class="col-lg-9">Tổng tiền :</div>
           <div class="col-lg-3">
@@ -135,7 +139,7 @@
             </h6>
           </div>
         </div>
-        <hr />
+        <hr style="margin-top: 0" />
         <div class="row">
           <div class="col-lg-6">
             Giá theo đêm: {{ infoRoom?.giaPhongTheoDem }} VNĐ
@@ -171,9 +175,15 @@
       <!--End Card Chính sách -->
 
       <p-button
-        label="Xác nhận"
+        label="Xác nhận đặt"
         (click)="addClientBookRoom()"
         styleClass="p-button-danger"
+        style="
+          font-size: 20px;
+          display: grid;
+          margin-bottom: 40px;
+          width: -webkit-fill-available;
+        "
       ></p-button>
     </div>
     <br /><br /><br />

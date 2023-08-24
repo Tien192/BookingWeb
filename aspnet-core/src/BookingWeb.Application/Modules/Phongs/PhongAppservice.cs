@@ -544,6 +544,7 @@ namespace BookingWeb.Modules.Phongs
                     giamGia = info.UuDai,
                     uuDaiDacBiet = info.UuDai,
                     mienPhiHuyPhong = info.MienPhiHuyPhong,
+                    tenFIleAnh=info.AnhDaiDien
                     
                 };
                 return dto;

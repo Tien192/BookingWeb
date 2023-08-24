@@ -1,0 +1,19 @@
+.CheckboxLoaiHinhCuTru {
+  margin-top: 20px;
+}
+.LocLoaiHinhCuChuItem {
+  list-style: none;
+}
+.LocLoaiHinhCuChuItem li {
+  margin-bottom: 2px;
+}
+.LocLoaiHinhCuChuItem li label {
+  margin-bottom: 0;
+  margin-left: 5px;
+  font-weight: 500;
+}
+.FormInputKhachSan div input {
+  width: 50%;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+}

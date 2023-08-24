@@ -30,7 +30,7 @@ import { SliderModule } from "primeng/slider";
 import { TableModule } from "primeng/table";
 import { PaginatorModule } from "primeng/paginator";
 import { ChartModule } from "primeng/chart";
-// import { AgmCoreModule } from '@agm/core';
+import { GMapModule } from "primeng/gmap";
 
 // tenants
 import { TenantsComponent } from "@app/tenants/tenants.component";
@@ -71,8 +71,13 @@ import {
   LienHeServiceProxy,
 } from "@shared/service-proxies/service-proxies";
 import { XacnhandatComponent } from "./formthongtinlienhe/xacnhandat/xacnhandat.component";
-import { LocdiadiemComponent } from "./luutru/LocSlider/locdiadiem/locdiadiem.component";
 import { MessageService } from "primeng/api";
+import { TimerComponent } from "./luutru/timer/timer.component";
+import { MapComponent } from "./sharedcomponent/map/map.component";
+import { FormtaokhachsanComponent } from "./admin/formtaokhachsan/formtaokhachsan.component";
+import { HotrokhachhangComponent } from "./sharedcomponent/chatboxlive/hotrokhachhang/hotrokhachhang.component";
+import { HotrokhachhangStartComponent } from "./sharedcomponent/chatboxlive/hotrokhachhang-start/hotrokhachhang-start.component";
+import { FloatingbuttonComponent } from './luutru/floatingbutton/floatingbutton.component';
 
 @NgModule({
   declarations: [
@@ -117,7 +122,12 @@ import { MessageService } from "primeng/api";
     ThongtinlienheComponent,
     ThongtinlienheStartComponent,
     XacnhandatComponent,
-    LocdiadiemComponent,
+    TimerComponent,
+    MapComponent,
+    FormtaokhachsanComponent,
+    HotrokhachhangComponent,
+    HotrokhachhangStartComponent,
+    FloatingbuttonComponent,
   ],
   // AgmCoreModule.forRoot({
   //   apiKey: 'AIzaSyA3jd636bBrRo6a8IZ5LnHtKpjE1aFnmQM'
@@ -150,6 +160,7 @@ import { MessageService } from "primeng/api";
     TableModule,
     PaginatorModule,
     ChartModule,
+    GMapModule,
 
     // PaginatorModule,
   ],

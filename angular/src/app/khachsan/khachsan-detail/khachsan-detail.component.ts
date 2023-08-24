@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { ActivatedRoute, Params, Router } from "@angular/router";
+import { ActivatedRoute, Params } from "@angular/router";
 import {
   HinhAnhServiceProxy,
   PhongServiceProxy,
@@ -21,7 +21,7 @@ export class KhachsanDetailComponent {
   value: string;
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
+
     private _phongService: PhongServiceProxy,
     private _hinhanhService: HinhAnhServiceProxy // private _donvikinhdoanhService: DonViKinhDoanhServiceProxy
   ) {}
@@ -50,14 +50,4 @@ export class KhachsanDetailComponent {
   getCurrentSubSlideUrl(index: number): string {
     return `url('/assets/img/HinhAnh/${this?.listhinhanh[index]?.tenFileAnh}')`;
   }
-
-  // goToPart(partIdName: any) {
-  //   this.router.navigateByUrl(
-  //     "/app/khachsanstart/" + this.id + "#" + partIdName
-  //   );
-  // }
-  // fragment: string = "PhongConTrong";
-  // changeFragment() {
-  //   this.fragment = "AnotherFragment";
-  // }
 }

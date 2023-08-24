@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="margin-top: 100px">
   <div style="padding: 20px 7.5px">
     <h3>Đặt phòng khách sạn</h3>
     <p>
@@ -160,9 +160,14 @@
       </form>
       <!-- <pre>{{ FormYeuCauDacBiet.value | json }}</pre> -->
       <!-- End yêu cầu đặc biệt -->
-
+      <!-- style="
+          font-size: 20px;
+          display: grid;
+          margin-bottom: 40px;
+          width: -webkit-fill-available;
+        " -->
       <p-button
-        label="Đặt"
+        label="Đặt phòng"
         (click)="addClientBookRoom()"
         styleClass="p-button-danger"
         [disabled]="!FormThongTinLienHe.valid"
@@ -177,52 +182,76 @@
     <div class="col-lg-5">
       <!-- PhongConTrong -->
       <div class="PhongConTrong card" id="PhongConTrong">
-        <h4>
+        <h4 style="margin-bottom: 20px">
           {{ selectedloaiphong?.tenDonVi }}
+          <br />
         </h4>
         <div class="PhongConTrongList">
           <div class="PhongConTrongListItem card">
+            <div
+              style="margin-bottom: 10px; font-weight: bold; width: 70%"
+              class="row"
+            >
+              {{ selectedloaiphong?.tenLoaiPhong }}
+            </div>
+
             <div class="row">
-              <div class="col-lg-9">
-                {{ selectedloaiphong?.tenLoaiPhong }}
+              <div class="col-lg-7">
+                <img
+                  class="card"
+                  style="max-width: 100%; max-height: fit-content; padding: 2px"
+                  src="../../../assets/img/LoaiPhong/{{
+                    selectedloaiphong?.tenFIleAnh
+                  }}"
+                  alt="Fails"
+                />
               </div>
 
-              <div class="col-lg-3">
-                <i class="fa-solid fa-bed"></i>
-                {{ selectedloaiphong?.sucChuaPhong }}
-                người
+              <div class="col-lg-5">
+                <i class="fa-solid fa-bed" style="color: #3b56de"></i>
+                {{ selectedloaiphong?.sucChuaPhong }}người
+                <br />
+
+                <h6
+                  style="color: #00a651; margin-top: 10px"
+                  *ngIf="selectedloaiphong?.mienPhiHuyPhong"
+                >
+                  Miễn phí hủy phòng
+                </h6>
+                <h6
+                  style="color: orange; margin-top: 10px"
+                  *ngIf="!selectedloaiphong?.mienPhiHuyPhong"
+                >
+                  Không miễn phí hủy phòng
+                </h6>
               </div>
             </div>
-            <br />
-            <div class="row">
+
+            <div style="margin-top: 10px" class="row">
               <div class="col-lg-6">
-                Tiện nghi:{{ selectedloaiphong?.tienNghi }}
+                <h6>Phòng gồm:</h6>
+                {{ selectedloaiphong?.moTaPhong }}
               </div>
               <div class="col-lg-6">
-                Mô tả:
-                {{ selectedloaiphong?.moTaPhong }}
-                <br />
+                <h6 style="margin: 0">Tiện nghi:</h6>
+                {{ selectedloaiphong?.tienNghi }}
               </div>
             </div>
 
             <hr />
             <div class="row">
-              <div class="col-lg-6">
-                <p-checkbox
+              <div class="col-lg-12">
+                <!-- <p-checkbox
                   [disabled]="true"
                   [ngModel]="selectedloaiphong?.mienPhiHuyPhong"
                   (ngModel)="(selectedloaiphong?.mienPhiHuyPhong)"
                   binary=" selectedloaiphong?.mienPhiHuyPhong"
                   label="Cho phép hủy phòng"
                 >
-                </p-checkbox
-                ><br /><br />
-              </div>
-
-              <div class="col-lg-6">
-                <h6 style="color: red">
+                </p-checkbox> -->
+                <h5 style="color: red">
                   Giá : {{ selectedloaiphong?.giaPhongTheoDem }} VNĐ
-                </h6>
+                </h5>
               </div>
             </div>
           </div>

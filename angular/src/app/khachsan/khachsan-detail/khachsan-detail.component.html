@@ -190,7 +190,7 @@
         *ngIf="selectedkhachsan?.chinhSachChung[0].phuongThucThanhToan !== ''"
       >
         <div class="col-lg-3">
-          <i class="fa-regular fa-credit-card"></i>
+          <i class="fa-regular fa-credit-card"></i>Thanh toán
         </div>
         <div class="col-lg-9">
           {{ selectedkhachsan?.chinhSachChung[0].phuongThucThanhToan }}
@@ -233,131 +233,166 @@
         let i = index
       "
     >
-      <div class="PhongConTrongListItem card">
+      <div class="PhongConTrongListItem">
         <div class="row">
           <div class="col-lg-4">
-            Loại phòng: {{ loaiphongdetail?.loaiPhong }}
-          </div>
-          <div class="col-lg-5">
-            Còn trống
-            {{ loaiphongdetail?.tongSLPhong }}
-          </div>
-          <div class="col-lg-3">
-            <i class="fa-solid fa-bed"></i> {{ loaiphongdetail?.sucChua }} người
-          </div>
-        </div>
-
-        <hr />
-        <div class="row">
-          <div class="col-lg-4" style="margin: auto">
-            <img
-              class="card"
-              style="max-width: 250px; max-height: fit-content"
-              src="../../../assets/img/LoaiPhong/{{
-                loaiphongdetail?.anhDaiDien
-              }}"
-              alt="Fails"
-            />
-          </div>
-          <div class="col-lg-5">
-            <p-checkbox
-              [disabled]="true"
-              (ngModel)="(loaiphongdetail?.mienPhiHuyPhong)"
-              [ngModel]="loaiphongdetail?.mienPhiHuyPhong"
-              binary="loaiphongdetail?.mienPhiHuyPhong"
-              label="Cho phép hủy phòng"
-            >
-            </p-checkbox
-            ><br /><br />
-            <h6 style="color: #00a651">Dịch vụ đi kèm</h6>
-            <div style="column-count: 2" class="DichVuContainer">
-              <div
-                *ngFor="
-                  let dichVuItem of loaiphongdetail?.dichVu;
-                  let i = index
-                "
-              >
-                {{ dichVuItem.tenDichVu }}: {{ dichVuItem.moTa }}
+            <div style="margin-right: 20px">
+              <img
+                class="card"
+                style="max-width: 100%; max-height: fit-content"
+                src="../../../assets/img/LoaiPhong/{{
+                  loaiphongdetail?.anhDaiDien
+                }}"
+                alt="Fails"
+              />
+              <div class="row">
+                <div
+                  class="col-lg-4"
+                  *ngFor="let item of [].constructor(3); let i = index"
+                >
+                  <img
+                    class="card"
+                    style="
+                      max-width: 100%;
+                      max-height: fit-content;
+                      padding: 2px;
+                    "
+                    src="../../../assets/img/LoaiPhong/{{
+                      loaiphongdetail?.anhDaiDien
+                    }}"
+                    alt="Fails"
+                  />
+                </div>
               </div>
             </div>
           </div>
+          <div class="col-lg-8 card">
+            <div class="row PhongTrongDetail">
+              <div class="col-lg-7" style="list-style: none">
+                <li>
+                  <h6>Loại phòng: {{ loaiphongdetail?.loaiPhong }}</h6>
+                </li>
+                <li>
+                  <i class="fa-solid fa-bed"></i>
+                  {{ loaiphongdetail?.sucChua }} người
+                </li>
+                <li>
+                  <h6
+                    style="color: green; margin-top: 10px"
+                    *ngIf="loaiphongdetail?.mienPhiHuyPhong"
+                  >
+                    Miễn phí hủy phòng
+                  </h6>
+                  <h6
+                    style="color: orange; margin-top: 10px"
+                    *ngIf="!loaiphongdetail?.mienPhiHuyPhong"
+                  >
+                    Không miễn phí hủy phòng
+                  </h6>
+                </li>
 
-          <div class="col-lg-3">
-            Ưu đãi: {{ loaiphongdetail?.uuDai }}% <br />
-            Giá gói dịch vụ thêm:
-            {{ loaiphongdetail?.giaGoiDVThem }}
-            <div class="GiaLoaiPhong" style="color: red; margin-bottom: 20px">
-              Giá:&ensp;
-              <s>{{
-                loaiphongdetail?.giaPhongTheoDem + loaiphongdetail?.giaGoiDVThem
-              }}</s>
-              VNĐ
-              <br />
-              Nay chỉ còn:&ensp;
-              {{
-                loaiphongdetail?.giaPhongTheoDem *
-                  (1 - loaiphongdetail?.uuDai / 100) +
-                  loaiphongdetail?.giaGoiDVThem
-              }}
-              VNĐ
+                <li style="width: 60%">
+                  <h6 style="">Dịch vụ đi kèm</h6>
+                  <div style="column-count: 2" class="DichVuContainer">
+                    <div
+                      *ngFor="
+                        let dichVuItem of loaiphongdetail?.dichVu;
+                        let i = index
+                      "
+                    >
+                      {{ dichVuItem.tenDichVu }} <br />
+                    </div>
+                  </div>
+                </li>
+              </div>
+
+              <div class="col-lg-5">
+                <h6>Còn {{ loaiphongdetail?.tongSLPhong }} phòng</h6>
+                <div>
+                  Ưu đãi: {{ loaiphongdetail?.uuDai }}% <br />
+                  Giá gói dịch vụ thêm:
+                  {{ loaiphongdetail?.giaGoiDVThem }}
+                  <div
+                    class="GiaLoaiPhong"
+                    style="color: red; margin-bottom: 20px"
+                  >
+                    Giá:&ensp;
+                    <s>{{
+                      loaiphongdetail?.giaPhongTheoDem +
+                        loaiphongdetail?.giaGoiDVThem
+                    }}</s>
+                    VNĐ
+                    <br />
+                    Nay chỉ còn:&ensp;
+                    {{
+                      loaiphongdetail?.giaPhongTheoDem *
+                        (1 - loaiphongdetail?.uuDai / 100) +
+                        loaiphongdetail?.giaGoiDVThem
+                    }}
+                    VNĐ
+                  </div>
+                  <p-button
+                    [routerLink]="[
+                      '/app/thongtinlienhestart',
+                      id,
+                      loaiphongdetail?.loaiPhongId
+                    ]"
+                    label="Chọn phòng này"
+                    styleClass="p-button-warning"
+                  ></p-button>
+                </div>
+              </div>
             </div>
-            <p-button
-              [routerLink]="[
-                '/app/thongtinlienhestart',
-                id,
-                loaiphongdetail?.loaiPhongId
-              ]"
-              label="Chọn phòng này"
-              styleClass="p-button-warning"
-            ></p-button>
           </div>
+          <hr />
         </div>
-      </div>
-      <br /><br />
-    </div>
-  </div>
-  <!-- EndPhongConTrong -->
 
-  <!-- TienIchChung -->
-  <div class="TienIchChung">
-    <h5>Tiện ích chung</h5>
-    <div class="TienIchChungContainer">
-      <div
-        class="TienIchChungItem"
-        *ngFor="let tienich of selectedkhachsan?.dichVuChung"
-      >
-        <div style="font-size: 17px; font-weight: bold">
-          {{ tienich?.tenDichVu }}
-        </div>
-        <ul>
-          <li
-            style="font-size: 16px; list-style: none"
-            *ngFor="let item of splitChiTietIntoArray(tienich.chiTiet)"
-          >
-            {{ item }}
-          </li>
-        </ul>
+        <br /><br />
       </div>
     </div>
-  </div>
-  <!-- EndTienIchChung -->
-</div>
+    <!-- EndPhongConTrong -->
 
-<!-- Dang ky email -->
-<div class="DangKyEmail">
-  <div class="container DangKyEmailContainer">
-    <h3 style="font-family: auto">Tiết kiệm thời gian và tiền bạc</h3>
-    <p>Hãy đăng ký và chúng tôi sẽ gửi những ưu đãi tốt nhất cho bạn</p>
-    <div class="SubmitEmail">
-      <input
-        type="text"
-        placeholder="Địa chỉ email của bạn"
-        pInputText
-        [(ngModel)]="value"
-      />
-      <p-button label="Đăng ký"></p-button>
+    <!-- TienIchChung -->
+    <div class="TienIchChung">
+      <h5 style="font-weight: 700; color: crimson">Tiện ích chung</h5>
+      <div class="TienIchChungContainer">
+        <div
+          class="TienIchChungItem"
+          *ngFor="let tienich of selectedkhachsan?.dichVuChung"
+        >
+          <div style="font-size: 17px; font-weight: bold; color: orangered">
+            {{ tienich?.tenDichVu }}
+          </div>
+          <ul>
+            <li
+              style="font-size: 16px; list-style: none"
+              *ngFor="let item of splitChiTietIntoArray(tienich.chiTiet)"
+            >
+              {{ item }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- EndTienIchChung -->
+  </div>
+
+  <!-- Dang ky email -->
+  <div class="DangKyEmail">
+    <div class="container DangKyEmailContainer">
+      <h3 style="font-family: auto">Tiết kiệm thời gian và tiền bạc</h3>
+      <p>Hãy đăng ký và chúng tôi sẽ gửi những ưu đãi tốt nhất cho bạn</p>
+      <div class="SubmitEmail">
+        <input
+          type="text"
+          placeholder="Địa chỉ email của bạn"
+          pInputText
+          [(ngModel)]="value"
+        />
+        <p-button label="Đăng ký"></p-button>
+      </div>
     </div>
   </div>
+  <!--End Dang ky email -->
+  <app-footer></app-footer>
 </div>
-<!--End Dang ky email -->
-<app-footer></app-footer>

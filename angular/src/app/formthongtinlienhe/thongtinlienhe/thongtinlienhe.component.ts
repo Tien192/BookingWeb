@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Params } from "@angular/router";
 import { BookingInfoService } from "@app/service/booking-info-service.service";
@@ -7,7 +7,6 @@ import {
   ClientBookRoomOutputDto,
   PhongServiceProxy,
 } from "@shared/service-proxies/service-proxies";
-import { error } from "console";
 
 @Component({
   selector: "app-thongtinlienhe",
@@ -22,6 +21,7 @@ export class ThongtinlienheComponent {
 
   selectedloaiphong: any;
   selectedphong: any;
+
   id: number;
   idloaiphong: number;
   yeucaus: any[] = [

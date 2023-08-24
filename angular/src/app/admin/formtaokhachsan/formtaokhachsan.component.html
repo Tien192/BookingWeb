@@ -1,0 +1,66 @@
+<div>
+  <div>
+    <form [formGroup]="FormTaoKhachSan" (ngSubmit)="onSubmit()">
+      <pre>
+        {{ FormTaoKhachSan.value | json }}
+     </pre
+      >
+      <p-autoComplete
+        class="TimDiaDiem form-group"
+        formControlName="locations"
+        [dropdown]="true"
+        [suggestions]="suggestionsDiaDiem"
+        (completeMethod)="searchDiaDiem($event)"
+        field="tenDiaDiem"
+        name="selectedDiadiem"
+        placeholder="Nhập địa điểm"
+      ></p-autoComplete>
+      <!-- Loại hình cư trú -->
+      <div formGroupName="LocLoaiHinhCuTru" class="CheckboxLoaiHinhCuTru">
+        <ul class="LocLoaiHinhCuChuItem">
+          <li *ngFor="let option of loaiHinhCuTruOptions">
+            <div class="p-field-checkbox">
+              <p-checkbox
+                [binary]="true"
+                [id]="'checkbox_' + option.value"
+                [name]="option.value.toString()"
+                [formControlName]="option.value.toString()"
+                (onChange)="onCheckboxLoaiHinhChange(option.value)"
+              ></p-checkbox>
+              <label [for]="'checkbox_' + option.value">{{
+                option.label
+              }}</label>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- End loại hình cư trú -->
+
+      <!-- input thong tin khach san -->
+      <div class="FormInputKhachSan">
+        <div class="col-lg-12" style="display: flex; flex-direction: column">
+          <label for="name">Tên khách sạn </label>
+          <input
+            type="text"
+            aria-describedby="username-help"
+            pInputText
+            formControlName="name"
+            required
+          />
+          <small
+            style="color: red"
+            *ngIf="
+              !FormTaoKhachSan.get('name').valid &&
+              FormTaoKhachSan.get('name').touched
+            "
+            >Vui lòng nhập tên
+          </small>
+          <small *ngIf="!FormTaoKhachSan.get('name').valid"
+            >Tên khách sạn sẽ được hiển thị đầu tiên</small
+          >
+        </div>
+      </div>
+      <!-- End input thong tin khach san -->
+    </form>
+  </div>
+</div>
