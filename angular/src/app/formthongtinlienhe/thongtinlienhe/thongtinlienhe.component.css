@@ -38,8 +38,3 @@ app-thongtinlienhe input.ng-invalid.ng-touched {
 }
 
 /* Hide the default increase and decrease buttons */
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}

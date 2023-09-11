@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MessageService } from "primeng/api";
 import {
@@ -132,14 +132,6 @@ export class LuutruComponent {
 
   toggleForm() {
     this.overlayVisible = !this.overlayVisible;
-  }
-
-  show() {
-    this.messageService.add({
-      severity: "success",
-      summary: "Success",
-      detail: "Tìm thành công",
-    });
   }
 
   searchHotels() {}

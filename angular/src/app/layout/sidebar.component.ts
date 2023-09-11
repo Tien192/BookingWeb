@@ -22,7 +22,8 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this._layoutStore.sidebarExpanded.subscribe((value) => {
-      this.sidebarExpanded = value;
+      //Mặc định là value
+      this.sidebarExpanded = true;
       this.toggleSidebar();
     });
   }

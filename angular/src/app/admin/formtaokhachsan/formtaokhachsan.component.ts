@@ -10,10 +10,6 @@ import {
   DiaDiemServiceProxy,
 } from "@shared/service-proxies/service-proxies";
 
-interface LocItem {
-  label: string;
-  value: number;
-}
 @Component({
   selector: "app-formtaokhachsan",
   templateUrl: "./formtaokhachsan.component.html",
@@ -21,6 +17,7 @@ interface LocItem {
 })
 export class FormtaokhachsanComponent {
   FormTaoKhachSan: FormGroup;
+  FormTaoLoaiPhong: FormGroup;
   suggestionsDiaDiem: DiaDiemFullDto[];
 
   selectedLoaiHinhCuTru: number[] = [];
@@ -48,20 +45,27 @@ export class FormtaokhachsanComponent {
   // End chon dia diem
 
   // Chon loai hinh cu tru
-  loaiHinhCuTruOptions: LocItem[] = [
-    { label: "Khách Sạn", value: 1 },
-    { label: "Khách Sạn Cao Cấp", value: 2 },
-    { label: "HomeStay", value: 3 },
-    { label: "Nhà Nghỉ", value: 4 },
-    { label: "Resort", value: 5 },
-    { label: "Căn Hộ", value: 6 },
-    { label: "Chỗ nghỉ", value: 7 },
-    { label: "Nhà dân", value: 8 },
-    { label: "Nhà Trọ", value: 9 },
-    { label: "Biệt thự", value: 10 },
-    { label: "Studio", value: 11 },
+  loaiHinhCuTruOptions: any[] = [
+    { name: "Khách Sạn", key: 1 },
+    { name: "Khách Sạn Cao Cấp", key: 2 },
+    { name: "HomeStay", key: 3 },
+    { name: "Nhà Nghỉ", key: 4 },
+    { name: "Resort", key: 5 },
+    { name: "Căn Hộ", key: 6 },
+    { name: "Chỗ nghỉ", key: 7 },
+    { name: "Nhà dân", key: 8 },
+    { name: "Nhà Trọ", key: 9 },
+    { name: "Biệt thự", key: 10 },
+    { name: "Studio", key: 11 },
   ];
-
+  //Số sao
+  hangsaos: any[] = [
+    { name: "1", key: 1 },
+    { name: "2", key: 2 },
+    { name: "3", key: 3 },
+    { name: "4", key: 4 },
+    { name: "5", key: 5 },
+  ];
   onCheckboxLoaiHinhChange(value: number) {
     const locLoaiHinhCuTru = this.FormTaoKhachSan.get(
       "LocLoaiHinhCuTru"
@@ -85,16 +89,88 @@ export class FormtaokhachsanComponent {
       locations: [null, Validators.required],
       LocLoaiHinhCuTru: this.fb.group({}),
       name: ["", Validators.required],
+      locationdetail: ["", Validators.required],
+      selectedLoaiHinh: this.hangsaos[4],
+      selectedSao: this.hangsaos[4],
     });
-    const locLoaiHinhCuTru = this.FormTaoKhachSan.get(
-      "LocLoaiHinhCuTru"
-    ) as FormGroup;
-    this.loaiHinhCuTruOptions.forEach((option) => {
-      locLoaiHinhCuTru.addControl(
-        option.value.toString(),
-        new FormControl(false)
-      );
+    this.FormTaoLoaiPhong = this.fb.group({
+      namephong: ["", Validators.required],
+      tienNghiTrongPhong: ["", Validators.required],
+
+      moTa: ["", Validators.required],
+      sucChua: [2, Validators.required],
+      giaPhongTheoDem: [0, Validators.required],
+      giaGoiDichVuThem: [0, Validators.required],
+      uuDai: [0, Validators.required],
     });
   }
   onSubmit() {}
+
+  //chọn ảnh phòng
+  // loadImage(file: File) {
+  //   const reader = new FileReader();
+  //   reader.onload = (e: any) => {
+  //     this.imageUrl = e.target.result;
+  //   };
+  //   reader.readAsDataURL(file);
+  // }
+
+  // chọn ảnh khách sạn
+
+  imageKhachSanUrls: (string | ArrayBuffer | null)[] = [];
+
+  onFilesKhachSanSelected(event: any) {
+    const files: FileList = event.target.files;
+    if (files && files.length > 0) {
+      this.loadImagesKhachSan(files);
+    }
+  }
+
+  loadImagesKhachSan(files: FileList) {
+    for (let i = 0; i < files.length; i++) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imageKhachSanUrls.push(e.target.result);
+      };
+      reader.readAsDataURL(files[i]);
+    }
+  }
+
+  onDeleteKhachSanImage(imageUrl: string) {
+    // Find the index of the image in the array
+    const index = this.imageKhachSanUrls.indexOf(imageUrl);
+    if (index !== -1) {
+      // Remove the image URL from the array
+      this.imageKhachSanUrls.splice(index, 1);
+    }
+  }
+
+  // chọn ảnh phong
+  imagePhongUrls: (string | ArrayBuffer | null)[] = [];
+
+  onFilesPhongSelected(event: any) {
+    const files: FileList = event.target.files;
+    if (files && files.length > 0) {
+      this.loadImagesPhong(files);
+    }
+  }
+
+  loadImagesPhong(files: FileList) {
+    for (let i = 0; i < files.length; i++) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imagePhongUrls.push(e.target.result);
+      };
+      reader.readAsDataURL(files[i]);
+    }
+  }
+
+  onDeletePhongImage(imageUrl: string) {
+    // Find the index of the image in the array
+    const index = this.imagePhongUrls.indexOf(imageUrl);
+    if (index !== -1) {
+      // Remove the image URL from the array
+      this.imagePhongUrls.splice(index, 1);
+    }
+  }
 }

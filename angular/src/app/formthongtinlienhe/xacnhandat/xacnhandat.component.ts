@@ -148,23 +148,22 @@ export class XacnhandatComponent {
     this._phongService.confirmBookRoom(this.confirmBook).subscribe(
       (result) => {
         console.log(result);
+        this.messageService.add({
+          severity: "success",
+          summary: "Success",
+          detail: "Đặt thành công",
+        });
       },
       (error) => {
         console.log(error);
+        this.messageService.add({
+          severity: "error",
+          summary: "Error",
+          detail: "Đặt không thành công vui lòng kiểm tra lại",
+        });
       }
     );
   }
-  // showMessage() {
-  //   this.messageService.add({
-  //     severity: "success",
-  //     summary: "Success",
-  //     detail: "Đặt thành công",
-  //   });
 
-  //   this.messageService.add({
-  //     severity: "error",
-  //     summary: "Error",
-  //     detail: "Đặt không thành công",
-  //   });
-  // }
+  showMessage() {}
 }

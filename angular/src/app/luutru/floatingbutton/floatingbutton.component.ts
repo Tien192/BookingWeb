@@ -6,12 +6,12 @@ import { Component } from "@angular/core";
   styleUrls: ["./floatingbutton.component.css"],
 })
 export class FloatingbuttonComponent {
-  UuDai = false;
+  UuDai = true;
   HoTroKhachHang = false;
   showUuDai() {
-    this.UuDai = true;
+    this.UuDai = !this.UuDai;
   }
   showHoTroKhachHang() {
-    this.HoTroKhachHang = true;
+    this.HoTroKhachHang = !this.HoTroKhachHang;
   }
 }

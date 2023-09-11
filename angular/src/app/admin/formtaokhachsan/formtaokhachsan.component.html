@@ -1,66 +1,368 @@
-<div>
+<div class="container">
+  <br />
   <div>
+    <h3>Thêm khách sạn</h3>
     <form [formGroup]="FormTaoKhachSan" (ngSubmit)="onSubmit()">
-      <pre>
-        {{ FormTaoKhachSan.value | json }}
-     </pre
-      >
-      <p-autoComplete
-        class="TimDiaDiem form-group"
-        formControlName="locations"
-        [dropdown]="true"
-        [suggestions]="suggestionsDiaDiem"
-        (completeMethod)="searchDiaDiem($event)"
-        field="tenDiaDiem"
-        name="selectedDiadiem"
-        placeholder="Nhập địa điểm"
-      ></p-autoComplete>
-      <!-- Loại hình cư trú -->
-      <div formGroupName="LocLoaiHinhCuTru" class="CheckboxLoaiHinhCuTru">
-        <ul class="LocLoaiHinhCuChuItem">
-          <li *ngFor="let option of loaiHinhCuTruOptions">
-            <div class="p-field-checkbox">
-              <p-checkbox
-                [binary]="true"
-                [id]="'checkbox_' + option.value"
-                [name]="option.value.toString()"
-                [formControlName]="option.value.toString()"
-                (onChange)="onCheckboxLoaiHinhChange(option.value)"
-              ></p-checkbox>
-              <label [for]="'checkbox_' + option.value">{{
-                option.label
-              }}</label>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <!-- End loại hình cư trú -->
-
       <!-- input thong tin khach san -->
       <div class="FormInputKhachSan">
-        <div class="col-lg-12" style="display: flex; flex-direction: column">
-          <label for="name">Tên khách sạn </label>
-          <input
-            type="text"
-            aria-describedby="username-help"
-            pInputText
-            formControlName="name"
-            required
-          />
-          <small
-            style="color: red"
-            *ngIf="
-              !FormTaoKhachSan.get('name').valid &&
-              FormTaoKhachSan.get('name').touched
-            "
-            >Vui lòng nhập tên
-          </small>
-          <small *ngIf="!FormTaoKhachSan.get('name').valid"
-            >Tên khách sạn sẽ được hiển thị đầu tiên</small
-          >
+        <div class="row">
+          <div class="col-lg-3">
+            <div class="LoaiHinh">
+              <!-- Loại hình cư trú -->
+              <label>Loại hình</label>
+              <div
+                *ngFor="let sao of loaiHinhCuTruOptions"
+                class="field-checkbox"
+              >
+                <p-radioButton
+                  [inputId]="sao.key"
+                  [value]="sao"
+                  formControlName="selectedLoaiHinh"
+                ></p-radioButton>
+                <label [for]="sao.key" class="ml-2">{{ sao.name }}</label>
+              </div>
+              <!-- End loại hình cư trú -->
+            </div>
+          </div>
+          <div class="col-lg-4" style="display: flex; flex-direction: column">
+            <!-- Tên khách sạn -->
+            <div>
+              <label for="name">Tên khách sạn </label>
+              <input
+                type="text"
+                pInputText
+                formControlName="name"
+                required
+              /><br />
+              <small *ngIf="!FormTaoKhachSan.get('name').valid"
+                >Tên khách sạn sẽ được hiển thị đầu tiên</small
+              ><br />
+
+              <small
+                style="color: red"
+                *ngIf="
+                  !FormTaoKhachSan.get('name').valid &&
+                  FormTaoKhachSan.get('name').touched
+                "
+                >Vui lòng nhập tên
+              </small>
+            </div>
+            <br />
+
+            <!-- Số sao -->
+            <div class="HangSao">
+              <label>Hạng sao</label>
+              <div *ngFor="let sao of hangsaos" class="field-checkbox">
+                <p-radioButton
+                  [inputId]="sao.key"
+                  [value]="sao"
+                  formControlName="selectedSao"
+                ></p-radioButton>
+                <label [for]="sao.key" class="ml-2">{{ sao.name }}</label>
+              </div>
+            </div>
+
+            <!-- ảnh khách sạn -->
+            <label for="fileInputKhachSan" class="file-input-label">
+              <span>Tải lên ảnh khách sạn</span>
+              <input
+                type="file"
+                id="fileInputKhachSan"
+                (change)="onFilesKhachSanSelected($event)"
+                multiple
+              />
+            </label>
+            <div class="row">
+              <div
+                *ngFor="let imageKhachSanUrl of imageKhachSanUrls"
+                class="image-container"
+                class="col-lg-6"
+              >
+                <div class="image-wrapper">
+                  <button
+                    class="delete-button"
+                    (click)="onDeleteKhachSanImage(imageKhachSanUrl)"
+                  >
+                    X
+                  </button>
+                  <img
+                    [src]="imageKhachSanUrl"
+                    alt="Khách sạn"
+                    class="styled-image"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-5" style="display: flex; flex-direction: column">
+            <div>
+              <label for="locationdetail">Địa điểm chi tiết </label>
+              <input
+                type="text"
+                pInputText
+                formControlName="locationdetail"
+                required
+              /><br />
+              <small *ngIf="!FormTaoKhachSan.get('locationdetail').valid"
+                >Địa chỉ chi tiết gồm số nhà,tên đường,...</small
+              >
+              <br />
+              <small
+                style="color: red"
+                *ngIf="
+                  !FormTaoKhachSan.get('locationdetail').valid &&
+                  FormTaoKhachSan.get('locationdetail').touched
+                "
+                >Vui lòng nhập địa chỉ chi tiết
+              </small>
+            </div>
+            <hr />
+            <!-- địa điểm -->
+            <div>
+              <label>Khu vực </label> <br />
+              <p-autoComplete
+                class="TimDiaDiem form-group"
+                formControlName="locations"
+                [dropdown]="true"
+                [suggestions]="suggestionsDiaDiem"
+                (completeMethod)="searchDiaDiem($event)"
+                field="tenDiaDiem"
+                name="selectedDiadiem"
+                placeholder="Nhập khu vực"
+              ></p-autoComplete>
+            </div>
+            <br />
+            <app-map></app-map>
+          </div>
         </div>
       </div>
       <!-- End input thong tin khach san -->
     </form>
+    <!-- ảnh phòng -->
+    <!-- <input type="file" (change)="onFileSelected($event)" />
+  <img [src]="imageUrl" *ngIf="imageUrl" /> -->
   </div>
+
+  <!-- thêm loại phòng 
+
+  -->
+  <div class="ThemLoaiPhong">
+    <h3>Thêm loại phòng khách sạn</h3>
+
+    <!-- Form LoaiPhongDetail   
+      "tenDichVuTienIch": [
+        "string"
+      ]-->
+    <form [formGroup]="FormTaoLoaiPhong" (ngSubmit)="onSubmit()">
+      <!-- Tên loại phòng -->
+      <div class="FormInputLoaiPhong row">
+        <div class="col-lg-4">
+          <div>
+            <label for="namephong">Tên loại phòng </label><br />
+            <input
+              type="text"
+              pInputText
+              formControlName="namephong"
+              required
+            /><br />
+            <small *ngIf="!FormTaoLoaiPhong.get('namephong').valid"
+              >Loại phòng</small
+            ><br />
+
+            <small
+              style="color: red"
+              *ngIf="
+                !FormTaoLoaiPhong.get('namephong').valid &&
+                FormTaoLoaiPhong.get('namephong').touched
+              "
+              >Vui lòng nhập loại phòng
+            </small>
+          </div>
+          <br />
+
+          <div>
+            <label for="tienNghiTrongPhong">Tiện nghi trong phòng </label><br />
+            <input
+              type="text"
+              pInputText
+              formControlName="tienNghiTrongPhong"
+              required
+            /><br />
+            <small *ngIf="!FormTaoLoaiPhong.get('tienNghiTrongPhong').valid"
+              >Các tiện nghi có trong phòng</small
+            ><br />
+
+            <small
+              style="color: red"
+              *ngIf="
+                !FormTaoLoaiPhong.get('tienNghiTrongPhong').valid &&
+                FormTaoLoaiPhong.get('tienNghiTrongPhong').touched
+              "
+              >Vui lòng liệt kê các tiện nghi
+            </small>
+          </div>
+          <br />
+
+          <div>
+            <label for="moTa">Mô tả </label><br />
+
+            <textarea
+              rows="5"
+              cols="30"
+              pInputTextarea
+              formControlName="moTa"
+            ></textarea>
+            <br />
+            <small *ngIf="!FormTaoLoaiPhong.get('moTa').valid"
+              >Giới thiệu tổng quan về phòng</small
+            ><br />
+
+            <small
+              style="color: red"
+              *ngIf="
+                !FormTaoLoaiPhong.get('moTa').valid &&
+                FormTaoLoaiPhong.get('moTa').touched
+              "
+              >Vui lòng nhập mô tả phòng
+            </small>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div>
+            <label for="giaPhongTheoDem">Giá phòng mỗi đêm </label><br />
+            <p-inputNumber
+              required
+              formControlName="giaPhongTheoDem"
+              inputId="integeronly"
+            ></p-inputNumber>
+
+            <br />
+            <small *ngIf="!FormTaoLoaiPhong.get('giaPhongTheoDem').valid"
+              >Đơn vị VNĐ</small
+            ><br />
+
+            <small
+              style="color: red"
+              *ngIf="
+                !FormTaoLoaiPhong.get('giaPhongTheoDem').valid &&
+                FormTaoLoaiPhong.get('giaPhongTheoDem').touched
+              "
+              >Vui lòng nhập giá tiền
+            </small>
+          </div>
+          <br />
+
+          <div>
+            <label for="giaGoiDichVuThem">Giá gói dịch vụ </label><br />
+            <p-inputNumber
+              required
+              formControlName="giaGoiDichVuThem"
+              inputId="integeronly"
+            ></p-inputNumber>
+
+            <br />
+            <small *ngIf="!FormTaoLoaiPhong.get('giaGoiDichVuThem').valid"
+              >Đơn vị VNĐ</small
+            ><br />
+
+            <small
+              style="color: red"
+              *ngIf="
+                !FormTaoLoaiPhong.get('giaGoiDichVuThem').valid &&
+                FormTaoLoaiPhong.get('giaGoiDichVuThem').touched
+              "
+              >Vui lòng nhập phí dịch vụ
+            </small>
+          </div>
+          <br />
+
+          <div>
+            <label for="uuDai">Ưu đãi </label><br />
+
+            <p-inputNumber
+              required
+              formControlName="uuDai"
+              inputId="integeronly"
+              mode="decimal"
+              [min]="0"
+              [max]="100"
+            ></p-inputNumber>
+            <br />
+            <small *ngIf="!FormTaoLoaiPhong.get('uuDai').valid">Đơn vị %</small
+            ><br />
+
+            <small
+              style="color: red"
+              *ngIf="
+                !FormTaoLoaiPhong.get('uuDai').valid &&
+                FormTaoLoaiPhong.get('uuDai').touched
+              "
+              >Vui lòng nhập ưu đãi
+            </small>
+          </div>
+
+          <div>
+            <label for="sucChua">Sức chứa </label><br />
+
+            <p-inputNumber
+              required
+              formControlName="sucChua"
+              inputId="integeronly"
+            ></p-inputNumber>
+            <br />
+            <small *ngIf="!FormTaoLoaiPhong.get('sucChua').valid"
+              >Số lượng tối đa cho phép</small
+            ><br />
+
+            <small
+              style="color: red"
+              *ngIf="
+                !FormTaoLoaiPhong.get('sucChua').valid &&
+                FormTaoLoaiPhong.get('sucChua').touched
+              "
+              >Vui lòng nhập sức chứa
+            </small>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <!-- ảnh phòng -->
+          <div>
+            <label for="fileInputPhong" class="file-input-label">
+              <span>Tải lên ảnh phòng</span>
+              <input
+                type="file"
+                id="fileInputPhong"
+                (change)="onFilesPhongSelected($event)"
+                multiple
+              />
+            </label>
+            <div class="row">
+              <div
+                *ngFor="let imagePhongUrl of imagePhongUrls"
+                class="image-container"
+                class="col-lg-6 slide"
+              >
+                <div class="image-wrapper">
+                  <button
+                    class="delete-button"
+                    (click)="onDeletePhongImage(imagePhongUrl)"
+                  >
+                    X
+                  </button>
+                  <img [src]="imagePhongUrl" alt="Phòng" class="styled-image" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- <pre>
+  {{ FormTaoKhachSan.value | json }}
+</pre> -->
 </div>

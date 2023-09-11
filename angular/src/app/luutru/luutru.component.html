@@ -16,7 +16,6 @@
 >
   <div formGroupName="timkiemData" class="TimPhong">
     <div>
-      <i class="pi pi-building"></i>
       <!-- Tìm theo địa điểm  -->
       <p-autoComplete
         class="TimDiaDiem form-group"
@@ -27,6 +26,7 @@
         field="tenDiaDiem"
         name="selectedDiadiem"
         placeholder="Nhập địa điểm"
+        ><i class="pi pi-building"></i
       ></p-autoComplete>
     </div>
     <!-- Tìm theo ngày  -->
@@ -95,7 +95,6 @@
     <div style="text-align: center">
       <p-button
         pRipple
-        (click)="show()"
         (click)="onSubmit()"
         (click)="searchHotels()"
         (click)="AnTrangChuOnSubmit()"
@@ -104,7 +103,6 @@
         [routerLink]="['/app/trangchu', 0, iddiadiem]"
         ><i class="pi pi-search"></i
       ></p-button>
-      <p-toast></p-toast>
     </div>
   </div>
   <!-- CheckBox -->

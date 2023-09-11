@@ -645,14 +645,14 @@ namespace BookingWeb.Modules.Phongs
                     using (var smtpClient = new SmtpClient("smtp.gmail.com")) // Change to Gmail's SMTP server
                     {
                         smtpClient.Port = 587;
-                        smtpClient.Credentials = new NetworkCredential("your_email", "your_app_password"); // Use your email and app password
+                        smtpClient.Credentials = new NetworkCredential("lethienkhang2002@gmail.com", "hfkinaalbpwwrebr"); // Use your email and app password
                         smtpClient.EnableSsl = true;
 
                         var mailMessage = new MailMessage();
-                        mailMessage.From = new MailAddress("your_email", "BookingWeb.com"); // Use your email
+                        mailMessage.From = new MailAddress("lethienkhang2002@gmail.com", "BookingWeb.com"); // Use your email
                         mailMessage.To.Add(input.Email);
                         mailMessage.Subject = "Hello " + input.HoTen + ","; // Chủ đề của mail
-                        mailMessage.Body = "Thank you !"; // nội dung email
+                        mailMessage.Body = "Cảm ơn vì đã tin tưởng đặt phòng tại StayEase !"; // nội dung email
                         mailMessage.IsBodyHtml = true;
 
                         await smtpClient.SendMailAsync(mailMessage);

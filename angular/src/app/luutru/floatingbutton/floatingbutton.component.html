@@ -1,6 +1,6 @@
 <div
   class="floatingbutton"
-  style="z-index: 10; position: fixed; bottom: 5px; right: 70%"
+  style="z-index: 10; position: fixed; bottom: 5px; right: 20px"
 >
   <nav class="menu">
     <input
@@ -11,16 +11,21 @@
       id="menu-open"
     />
     <label class="menu-open-button" for="menu-open">
+      <!-- 3 gạch ngang nút mở -->
       <span class="hamburger hamburger-1"></span>
       <span class="hamburger hamburger-2"></span>
       <span class="hamburger hamburger-3"></span>
+      <span class="menu-item-label">Khám phá</span>
     </label>
 
-    <a (click)="showUuDai()" class="menu-item">
-      <i class="fa-solid fa-headset"></i
-    ></a>
     <a (click)="showHoTroKhachHang()" class="menu-item">
-      <i class="fa-solid fa-tag"></i>%
+      <i class="fa-solid fa-headset"></i>
+      <span class="menu-item-label">Hỗ trợ</span>
+    </a>
+
+    <a (click)="showUuDai()" class="menu-item">
+      <i class="fa-solid fa-tag"></i>
+      <span class="menu-item-label">Ưu đãi</span>
     </a>
   </nav>
 

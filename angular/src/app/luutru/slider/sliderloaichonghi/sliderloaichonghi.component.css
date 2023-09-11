@@ -12,6 +12,10 @@
 .slide {
   margin: 14px;
 }
+.cardRightArrow:hover,
+.cardLeftArrow:hover {
+  background-color: gainsboro;
+}
 .slide-image {
   width: 234px;
   height: 200px;

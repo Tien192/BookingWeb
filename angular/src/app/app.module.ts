@@ -31,6 +31,7 @@ import { TableModule } from "primeng/table";
 import { PaginatorModule } from "primeng/paginator";
 import { ChartModule } from "primeng/chart";
 import { GMapModule } from "primeng/gmap";
+import { InputTextareaModule } from "primeng/inputtextarea";
 
 // tenants
 import { TenantsComponent } from "@app/tenants/tenants.component";
@@ -77,7 +78,7 @@ import { MapComponent } from "./sharedcomponent/map/map.component";
 import { FormtaokhachsanComponent } from "./admin/formtaokhachsan/formtaokhachsan.component";
 import { HotrokhachhangComponent } from "./sharedcomponent/chatboxlive/hotrokhachhang/hotrokhachhang.component";
 import { HotrokhachhangStartComponent } from "./sharedcomponent/chatboxlive/hotrokhachhang-start/hotrokhachhang-start.component";
-import { FloatingbuttonComponent } from './luutru/floatingbutton/floatingbutton.component';
+import { FloatingbuttonComponent } from "./luutru/floatingbutton/floatingbutton.component";
 
 @NgModule({
   declarations: [
@@ -161,7 +162,7 @@ import { FloatingbuttonComponent } from './luutru/floatingbutton/floatingbutton.
     PaginatorModule,
     ChartModule,
     GMapModule,
-
+    InputTextareaModule,
     // PaginatorModule,
   ],
   providers: [

@@ -29,16 +29,19 @@ h1 {
 .menu-open-button {
   background: #00bcd4;
   border-radius: 100%;
-  width: 80px;
-  height: 80px;
-  margin-left: -40px;
+  width: 50px;
+  height: 50px;
+  margin-left: 244px;
   position: absolute;
-  top: 20px;
+  top: 74px;
   color: white;
   text-align: center;
   line-height: 80px;
   transform: translate3d(0, 0, 0);
   transition: transform ease-out 200ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .menu-open {
@@ -71,21 +74,17 @@ h1 {
 }
 
 .menu-open:checked + .menu-open-button .hamburger-1 {
-  transform: translate3d(0, 0, 0) rotate(45deg);
+  transform: translate3d(0, 0, 0) rotate(-45deg);
 }
 .menu-open:checked + .menu-open-button .hamburger-2 {
   transform: translate3d(0, 0, 0) scale(0.1, 1);
 }
 .menu-open:checked + .menu-open-button .hamburger-3 {
-  transform: translate3d(0, 0, 0) rotate(-45deg);
+  transform: translate3d(0, 0, 0) rotate(45deg);
 }
 
 .menu {
   position: absolute;
-  left: 50%;
-  margin-left: -80px;
-  padding-top: 20px;
-  padding-left: 80px;
   width: 650px;
   height: 150px;
   box-sizing: border-box;
@@ -93,9 +92,25 @@ h1 {
   text-align: left;
 }
 
-.menu-item:hover {
-  background: white;
-  color: #00bcd4;
+.menu-item-label {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #00bcd4;
+  color: white;
+  padding: 5px;
+  border-radius: 35px;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 700;
+}
+.menu-open-button:hover .menu-item-label {
+  display: block;
+}
+.menu-item:hover .menu-item-label {
+  display: block;
 }
 .menu-item:nth-child(3) {
   transition-duration: 180ms;
@@ -133,17 +148,17 @@ h1 {
 }
 .menu-open:checked ~ .menu-item:nth-child(3) {
   transition-duration: 190ms;
-  transform: translate3d(110px, 0, 0);
+  transform: translate3d(-70px, 0, 0);
 }
 .menu-open:checked ~ .menu-item:nth-child(4) {
   transition-duration: 290ms;
-  transform: translate3d(220px, 0, 0);
+  transform: translate3d(-140px, 0, 0);
 }
 .menu-open:checked ~ .menu-item:nth-child(5) {
   transition-duration: 390ms;
-  transform: translate3d(330px, 0, 0);
+  transform: translate3d(-210px, 0, 0);
 }
 .menu-open:checked ~ .menu-item:nth-child(6) {
   transition-duration: 490ms;
-  transform: translate3d(440px, 0, 0);
+  transform: translate3d(-280px, 0, 0);
 }

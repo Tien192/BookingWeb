@@ -64,7 +64,7 @@ export class LienheComponent implements OnInit {
         console.log(result);
       },
       (error) => {
-        console.log("loi lienhe:", error);
+        console.log("loi lien he:", error);
       }
     );
   }
