@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookingWeb.Modules.ChinhSachChungs.Dto
 {
-    public class ChinhSachChungOutoutDto
+    public class ChinhSachChungOutputDto
     {
         public int Id { get; set; }
 

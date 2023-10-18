@@ -3,7 +3,7 @@
   padding: 0;
 }
 .sliderDiaDiem {
-  padding-bottom: 180px;
+  padding-bottom: 150px;
 }
 .slide {
   margin: 14px;
@@ -41,11 +41,11 @@
   cursor: pointer;
 }
 .cardRightArrow {
-  right: 102px;
+  right: 187px;
 }
 
 .cardLeftArrow {
-  left: 102px;
+  left: 187px;
 }
 
 .TenDiaDiem {

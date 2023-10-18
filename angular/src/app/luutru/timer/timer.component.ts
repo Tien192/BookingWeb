@@ -7,7 +7,7 @@ import { Component } from "@angular/core";
 })
 export class TimerComponent {
   //Đích đến timer
-  targetDate: Date = new Date("2023-8-30");
+  targetDate: Date = new Date("2023-11-01");
   remainingTime: any;
   countdownInterval: any;
 
@@ -28,6 +28,10 @@ export class TimerComponent {
       const now = new Date().getTime();
       const timeDifference = this.targetDate.getTime() - now;
 
+      if (timeDifference <= 0) {
+        this.stopCountdown();
+        return;
+      }
       this.remainingTime = {
         days: Math.floor(timeDifference / (1000 * 60 * 60 * 24)),
         hours: Math.floor(
@@ -36,10 +40,6 @@ export class TimerComponent {
         minutes: Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60)),
         seconds: Math.floor((timeDifference % (1000 * 60)) / 1000),
       };
-
-      if (timeDifference <= 0) {
-        this.stopCountdown();
-      }
     }, 1000);
   }
 

@@ -70,8 +70,12 @@
   color: dodgerblue;
   font-size: 16px;
 }
+
 .DanhGiaPhong div {
   font-weight: 600;
+  font-size: 19px;
+  font-weight: 600;
+  color: orange;
 }
 
 /* GiaPhong */
@@ -188,7 +192,7 @@
   font-size: 20px;
   font-weight: 600;
   color: red;
-  margin-top: 50px;
+  margin-top: 24px;
 }
 
 .DangKyEmail {

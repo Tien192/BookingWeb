@@ -53,11 +53,5 @@ namespace BookingWeb.Modules.ChiTietDatPhongs
             }
         }
 
-
-
-
-
-
-
     }
 }

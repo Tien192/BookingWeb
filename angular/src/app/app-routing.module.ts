@@ -14,6 +14,8 @@ import { KhachsanDetailComponent } from "./khachsan/khachsan-detail/khachsan-det
 import { KhachsanStartComponent } from "./khachsan/khachsan-start/khachsan-start.component";
 import { ThongtinlienheComponent } from "./formthongtinlienhe/thongtinlienhe/thongtinlienhe.component";
 import { XacnhandatComponent } from "./formthongtinlienhe/xacnhandat/xacnhandat.component";
+import { FormtaokhachsanComponent } from "./admin/formtaokhachsan/formtaokhachsan.component";
+import { DieukhoanComponent } from "./dieukhoanchinhsach/dieukhoan/dieukhoan.component";
 
 @NgModule({
   imports: [
@@ -46,7 +48,11 @@ import { XacnhandatComponent } from "./formthongtinlienhe/xacnhandat/xacnhandat.
             data: { permission: "Pages.Tenants" },
             canActivate: [AppRouteGuard],
           },
-
+          {
+            path: "chinhsachdieukhoan",
+            component: DieukhoanComponent,
+            canActivate: [AppRouteGuard],
+          },
           {
             path: "trangchu",
             component: TrangchuComponent,
@@ -58,6 +64,12 @@ import { XacnhandatComponent } from "./formthongtinlienhe/xacnhandat/xacnhandat.
                 canActivate: [AppRouteGuard],
               },
             ],
+          },
+
+          {
+            path: "TaoKhachsan",
+            component: FormtaokhachsanComponent,
+            canActivate: [AppRouteGuard],
           },
 
           {

@@ -1,14 +1,11 @@
 import { Component } from "@angular/core";
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { HttpClient } from "@angular/common/http";
 import {
   DiaDiemFullDto,
   DiaDiemServiceProxy,
 } from "@shared/service-proxies/service-proxies";
+import { AngularFireStorage } from "@angular/fire/compat/storage";
 
 @Component({
   selector: "app-formtaokhachsan",
@@ -21,9 +18,12 @@ export class FormtaokhachsanComponent {
   suggestionsDiaDiem: DiaDiemFullDto[];
 
   selectedLoaiHinhCuTru: number[] = [];
+
   constructor(
     private fb: FormBuilder,
-    private _diadiemService: DiaDiemServiceProxy
+    private _diadiemService: DiaDiemServiceProxy,
+
+    private fireStorage: AngularFireStorage
   ) {}
 
   // Chon dia diem
@@ -93,10 +93,10 @@ export class FormtaokhachsanComponent {
       selectedLoaiHinh: this.hangsaos[4],
       selectedSao: this.hangsaos[4],
     });
+
     this.FormTaoLoaiPhong = this.fb.group({
       namephong: ["", Validators.required],
       tienNghiTrongPhong: ["", Validators.required],
-
       moTa: ["", Validators.required],
       sucChua: [2, Validators.required],
       giaPhongTheoDem: [0, Validators.required],
@@ -117,60 +117,65 @@ export class FormtaokhachsanComponent {
 
   // chọn ảnh khách sạn
 
-  imageKhachSanUrls: (string | ArrayBuffer | null)[] = [];
+  selectedFiles: File[] = [];
+  imagePreviews: (string | ArrayBuffer | null)[] = [];
 
-  onFilesKhachSanSelected(event: any) {
-    const files: FileList = event.target.files;
-    if (files && files.length > 0) {
-      this.loadImagesKhachSan(files);
-    }
-  }
+  // Function to handle file selection
+  onSelectFiles(event: any) {
+    this.selectedFiles = event.target.files;
+    // Clear any existing image previews
+    this.imagePreviews = [];
 
-  loadImagesKhachSan(files: FileList) {
-    for (let i = 0; i < files.length; i++) {
+    // Load image previews for selected files
+    for (const file of this.selectedFiles) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        this.imageKhachSanUrls.push(e.target.result);
+        this.imagePreviews.push(e.target.result);
       };
-      reader.readAsDataURL(files[i]);
+      reader.readAsDataURL(file);
     }
   }
+  // Function to remove an image preview
+  removeImage(index: number) {
+    // Remove the image preview and corresponding file from the arrays
+    this.imagePreviews.splice(index, 1);
+    this.selectedFiles.splice(index, 1);
+  }
+  // Function to handle the upload button click
+  async onUploadClick() {
+    // Check if any files were selected
+    if (this.selectedFiles.length === 0) {
+      return;
+    }
 
-  onDeleteKhachSanImage(imageUrl: string) {
-    // Find the index of the image in the array
-    const index = this.imageKhachSanUrls.indexOf(imageUrl);
-    if (index !== -1) {
-      // Remove the image URL from the array
-      this.imageKhachSanUrls.splice(index, 1);
+    // Add a confirmation dialog here if needed
+    const confirmUpload = confirm("Bạn có chắc muốn thêm những ảnh này?");
+
+    if (confirmUpload) {
+      // Loop through the selected files and upload them
+      for (const file of this.selectedFiles) {
+        const path = `AnhKhachSan/${file.name}`;
+        try {
+          // Use await within the async function
+          const uploadTask = await this.fireStorage.upload(path, file);
+          const url = await uploadTask.ref.getDownloadURL();
+          console.log(`Thành công thêm ảnh: ${file.name}, URL: ${url}`);
+        } catch (error) {
+          console.error(`Có lỗi khi tải ${file.name}: ${error.message}`);
+        }
+      }
+
+      // Clear the selected files array after uploading
+      this.selectedFiles = [];
     }
   }
 
   // chọn ảnh phong
   imagePhongUrls: (string | ArrayBuffer | null)[] = [];
 
-  onFilesPhongSelected(event: any) {
-    const files: FileList = event.target.files;
-    if (files && files.length > 0) {
-      this.loadImagesPhong(files);
-    }
-  }
+  onFilesPhongSelected(event: any) {}
 
-  loadImagesPhong(files: FileList) {
-    for (let i = 0; i < files.length; i++) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.imagePhongUrls.push(e.target.result);
-      };
-      reader.readAsDataURL(files[i]);
-    }
-  }
+  loadImagesPhong(files: FileList) {}
 
-  onDeletePhongImage(imageUrl: string) {
-    // Find the index of the image in the array
-    const index = this.imagePhongUrls.indexOf(imageUrl);
-    if (index !== -1) {
-      // Remove the image URL from the array
-      this.imagePhongUrls.splice(index, 1);
-    }
-  }
+  onDeletePhongImage(imageUrl: string) {}
 }

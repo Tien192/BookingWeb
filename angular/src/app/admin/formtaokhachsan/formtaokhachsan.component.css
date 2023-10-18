@@ -76,7 +76,13 @@ img {
 }
 
 .delete-button:hover {
-  background-color: burlywood;
+  background-color: rgb(235, 221, 203);
+}
+/* CSS styles for the image previews and remove icon */
+.image-preview {
+  position: relative;
+  display: inline-block;
+  margin-right: 10px;
 }
 
 .ThemLoaiPhong {

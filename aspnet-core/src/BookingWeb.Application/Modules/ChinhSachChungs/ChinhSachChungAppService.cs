@@ -28,12 +28,12 @@ namespace BookingWeb.Modules.ChinhSachChungs
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<ChinhSachChungOutoutDto> GetPolicyByDVKDId(int dvkdId)
+        public async Task<ChinhSachChungOutputDto> GetPolicyByDVKDId(int dvkdId)
         {
             try
             {
                 var policy = await _chinhSachChung.FirstOrDefaultAsync(p => p.DonViKinhDoanhId == dvkdId);
-                var dto = new ChinhSachChungOutoutDto
+                var dto = new ChinhSachChungOutputDto
                 {
                     Id=policy.Id,
                     KiemTraThongTin = policy.KiemTraThongTin,
@@ -55,13 +55,13 @@ namespace BookingWeb.Modules.ChinhSachChungs
             }
         }
 
-        public async Task<List<ChinhSachChungOutoutDto>> GetAllListChinhSach()
+        public async Task<List<ChinhSachChungOutputDto>> GetAllListChinhSach()
         {
             try
             {
                 var lstCs = await _chinhSachChung.GetAllListAsync();
 
-                var dto = lstCs.Select(e => new ChinhSachChungOutoutDto
+                var dto = lstCs.Select(e => new ChinhSachChungOutputDto
                 {
                     Id = e.Id,
                     KiemTraThongTin = e.KiemTraThongTin,
@@ -127,7 +127,7 @@ namespace BookingWeb.Modules.ChinhSachChungs
         }
 
 
-        public async Task<bool> UpdateCsc(ChinhSachChungOutoutDto input)
+        public async Task<bool> UpdateCsc(ChinhSachChungOutputDto input)
         {
             try
             {
@@ -170,7 +170,6 @@ namespace BookingWeb.Modules.ChinhSachChungs
                 var checkCsc = await _chinhSachChung.FirstOrDefaultAsync(p => p.Id == id);
                 if (checkCsc != null)
                 {
-
                     await _chinhSachChung.DeleteAsync(checkCsc);
                     await _httpContextAccessor.HttpContext.Response.WriteAsync($"da xoa dich vu {checkCsc}");
                     return true;

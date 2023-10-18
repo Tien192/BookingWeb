@@ -27,6 +27,7 @@ export class BookingInfoService {
   private infoSearchingDtoSubject = new BehaviorSubject<InfoBookingDto>(
     undefined
   );
+
   setSearchBookingInfo(info: InfoBookingDto): void {
     this.infoSearchingDtoSubject.next(info);
   }
